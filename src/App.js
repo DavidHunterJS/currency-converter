@@ -4,7 +4,7 @@ const baseUrl = "https://v6.exchangerate-api.com/v6/";
 const APIKey = process.env.REACT_APP_API;
 import "./App.css";
 
-// API
+// APIs
 // fake API for DEV
 import { GET } from "./components/Fake";
 // REAL API That Works But Limited Tries
