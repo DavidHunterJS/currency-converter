@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 const baseUrl = "https://v6.exchangerate-api.com/v6/";
 // import axios from "axios";
 const APIKey = process.env.REACT_APP_CC_APP_API;
-const env = process.env;
+
 import "./App.css";
 
 // APIs
@@ -47,7 +47,6 @@ function App() {
   return (
     <main className="App App-header container-fluid">
       <header>{APIKey}</header>
-      <header>{env}</header>
       <p>Hello there world.</p>
       <p>
         The amount is {amount}, the base currency is {original}{" "}
