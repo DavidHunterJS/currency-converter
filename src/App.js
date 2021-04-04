@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 const baseUrl = "https://v6.exchangerate-api.com/v6/";
 // import axios from "axios";
-const APIKey = process.env.NODE_ENV.API_KEY;
+const APIKey = process.env.NODE_ENV.REACT_APP_API_KEY;
 
 import "./App.css";
 
