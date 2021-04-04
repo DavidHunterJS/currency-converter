@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 const baseUrl = "https://v6.exchangerate-api.com/v6/";
 // import axios from "axios";
-const APIKey = process.env.REACT_APP_API;
+const APIKey = process.env.REACT_APP_CC_API_KEY;
+import REACT_APP_CC_API_KEY from "./env.production.local";
 import "./App.css";
 
 // APIs
@@ -46,6 +47,7 @@ function App() {
   return (
     <main className="App App-header container-fluid">
       <header>{APIKey}</header>
+      <header>{REACT_APP_CC_API_KEY}</header>
       <p>
         The amount is {amount}, the base currency is {original}{" "}
         {original ? "and is converted to" : null} {newCurrency} at the rate{" "}
