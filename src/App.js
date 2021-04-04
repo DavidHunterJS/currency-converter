@@ -45,7 +45,7 @@ function App() {
   // RETURN
   return (
     <main className="App App-header container-fluid">
-      <header>{APIKey}</header>
+      <header>{`Is this the api key your looking for? ${APIKey}`}</header>
       <p>
         The amount is {amount}, the base currency is {original}{" "}
         {original ? "and is converted to" : null} {newCurrency} at the rate{" "}
