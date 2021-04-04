@@ -51,7 +51,7 @@ function App() {
       <p>
         The amount is {amount}, the base currency is {original}{" "}
         {original ? "and is converted to" : null} {newCurrency} at the rate{" "}
-        {rate}, gives the result. {result}
+        {rate}, gives the result {result}
       </p>
       <p></p>
       <span>
