@@ -15,7 +15,7 @@ export default [
     code: "&#x",
     rate: 0,
     flag: "eu",
-    locale: "eu-ES",
+    locale: "en-US",
   },
   {
     id: 3,
@@ -60,7 +60,7 @@ export default [
     code: "&#x43,&#x48,&#x46",
     rate: 0,
     flag: "ch",
-    locale: "fr-CH",
+    locale: "ch-FR",
   },
   {
     id: 8,
@@ -78,7 +78,7 @@ export default [
     code: "&#x6b,&#x72",
     rate: 0,
     flag: "se",
-    locale: "se-SE",
+    locale: "us-SE",
   },
   {
     id: 10,
