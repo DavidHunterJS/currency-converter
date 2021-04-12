@@ -70,24 +70,8 @@ function App() {
   // RETURN
   return (
     <main className="App App-header container-fluid">
-      <div>{LiComponents}</div>
-      <ul className="list-group ">
-        <li className="list-group-item bg-dark  li-container">
-          <span className="item-containter d-flex">
-            <span className="flag-icon flag-icon-us flag country"></span>
-            <div className="item-text">
-              <div className="country-name">United States</div>
-              <div className="small text-muted rate">1 USD = 1.0000 USD</div>
-            </div>
-            <span className="amount-result">$500.00</span>
-          </span>
-        </li>
-        <li className="list-group-item">A second item</li>
-        <li className="list-group-item">A third item</li>
-        <li className="list-group-item">A fourth item</li>
-        <li className="list-group-item">And a fifth one</li>
-      </ul>
       <header>Currency Converter</header>
+      <div>{LiComponents}</div>
 
       <span>
         <label htmlFor="amount">
