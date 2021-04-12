@@ -39,7 +39,7 @@ export default [
     name: "Switzerland",
     code: "&#x43,&#x48,&#x46",
     rate: 0,
-    flag: "sw",
+    flag: "ch",
   },
   {
     id: 8,
@@ -55,7 +55,7 @@ export default [
     name: "Sweden",
     code: "&#x6b,&#x72",
     rate: 0,
-    flag: "sw",
+    flag: "se",
   },
   {
     id: 10,
