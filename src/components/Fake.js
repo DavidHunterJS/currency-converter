@@ -1,6 +1,6 @@
 export const GET = (query) => {
   console.log("Fake Fired");
   return {
-    conversion_rate: 888,
+    data: { conversion_rate: 888 },
   };
 };
