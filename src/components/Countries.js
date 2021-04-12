@@ -6,6 +6,7 @@ export default [
     code: "&#x24",
     rate: 0,
     flag: "us",
+    locale: "en-US",
   },
   {
     id: 2,
@@ -14,8 +15,17 @@ export default [
     code: "&#x",
     rate: 0,
     flag: "eu",
+    locale: "eu-ES",
   },
-  { id: 3, symbol: "JPY", name: "Japan", code: "&#xa5", rate: 0, flag: "jp" },
+  {
+    id: 3,
+    symbol: "JPY",
+    name: "Japan",
+    code: "&#xa5",
+    rate: 0,
+    flag: "jp",
+    locale: "ja-JP",
+  },
   {
     id: 4,
     symbol: "GBP",
@@ -23,6 +33,7 @@ export default [
     code: "&#xa3",
     rate: 0,
     flag: "gb",
+    locale: "en-GB",
   },
   {
     id: 5,
@@ -31,8 +42,17 @@ export default [
     code: "&#x24",
     rate: 0,
     flag: "au",
+    locale: "en-AU",
   },
-  { id: 6, symbol: "CAD", name: "Canada", code: "&#x24", rate: 0, flag: "ca" },
+  {
+    id: 6,
+    symbol: "CAD",
+    name: "Canada",
+    code: "&#x24",
+    rate: 0,
+    flag: "ca",
+    locale: "en-CA",
+  },
   {
     id: 7,
     symbol: "CHF",
@@ -40,6 +60,7 @@ export default [
     code: "&#x43,&#x48,&#x46",
     rate: 0,
     flag: "ch",
+    locale: "fr-CH",
   },
   {
     id: 8,
@@ -48,6 +69,7 @@ export default [
     code: "&#xa5",
     rate: 0,
     flag: "cn",
+    locale: "zh-CN",
   },
   {
     id: 9,
@@ -56,6 +78,7 @@ export default [
     code: "&#x6b,&#x72",
     rate: 0,
     flag: "se",
+    locale: "se-SE",
   },
   {
     id: 10,
@@ -64,5 +87,6 @@ export default [
     code: "&#x24",
     rate: 0,
     flag: "nz",
+    locale: "en-NZ",
   },
 ];

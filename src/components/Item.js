@@ -12,7 +12,12 @@ function Item(props) {
             1 {props.base} = {props.rate} {props.symbol}
           </div>
         </div>
-        <span className="amount-result">$500.00 rate times amount</span>
+        <span className="amount-result">
+          {props.result.toLocaleString(`${props.locale}`, {
+            style: "currency",
+            currency: `${props.symbol}`,
+          })}
+        </span>
       </span>
     </li>
   );
@@ -23,5 +28,8 @@ Item.propTypes = {
   rate: PropTypes.number.isRequired,
   flag: PropTypes.string.isRequired,
   base: PropTypes.string.isRequired,
+  locale: PropTypes.string.isRequired,
+  result: PropTypes.number.isRequired,
+  code: PropTypes.string.isRequired,
 };
 export default Item;

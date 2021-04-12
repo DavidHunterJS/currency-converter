@@ -15,7 +15,7 @@ function App() {
   // STATE
   // UI
   const [newCurrency, setNewCurrency] = useState("EUR");
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState(23);
   const [base, setBase] = useState("USD");
   const [netRates, setNetRates] = useState();
   const [countriesData, setCountriesData] = useState();
@@ -60,7 +60,10 @@ function App() {
         symbol={v.symbol}
         flag={v.flag}
         rate={v.rate}
+        locale={v.locale}
         base={base}
+        result={v.rate * amount}
+        code={v.code}
       />
     ));
 
