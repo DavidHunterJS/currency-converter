@@ -20,7 +20,6 @@ function App() {
   const [netRates, setNetRates] = useState();
   const [countriesData, setCountriesData] = useState();
   const url = `https://v6.exchangerate-api.com/v6/${APIKey}/latest/${base}`;
-  // TRANSFORM: GRABBING RATES FROM FETCH AND COMBINING WITH COUNTRIES FILE
   // FETCH: GETS A LIST OF CURRENT EXCHANGE RATES
   useEffect(() => {
     const handleFetch = async () => {
@@ -33,8 +32,8 @@ function App() {
   }, [url]);
   useEffect(() => {
     const handleTransform = () => {
-      console.log(`netRates in transform are: ${netRates}`);
-      console.log(`Countries in transform are: ${Countries}`);
+      // console.log(`netRates in transform are: ${netRates}`);
+      // console.log(`Countries in transform are: ${Countries}`);
       for (const [k, v] of Object.entries(Countries)) {
         for (let [key, value] of Object.entries(netRates)) {
           for (let i = 0; i < 1; i++) {
@@ -45,13 +44,13 @@ function App() {
         }
       }
       setCountriesData(Countries);
-      console.log(`countriesData is: ${countriesData}`);
+      // console.log(`countriesData is: ${countriesData}`);
     };
     if (netRates) handleTransform();
   }, [netRates]);
 
-  console.log(`netRates is: ${typeof netRates}`);
-  console.log(`countriesData222 is: ${countriesData}`);
+  // console.log(`netRates is: ${typeof netRates}`);
+  // console.log(`countriesData222 is: ${countriesData}`);
   const LiComponents =
     countriesData &&
     countriesData.map((v, i) => (
@@ -61,11 +60,11 @@ function App() {
         symbol={v.symbol}
         flag={v.flag}
         rate={v.rate}
-        code={v.code}
+        base={base}
       />
     ));
 
-  // RETURNxx
+  // RETURN
   return (
     <main className="App App-header container-fluid">
       <div>{LiComponents}</div>

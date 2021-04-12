@@ -9,7 +9,7 @@ function Item(props) {
         <div className="item-text">
           <div className="country-name">{props.name}</div>
           <div className="small text-muted rate">
-            1 {props.symbol} = {props.rate} {props.symbol}
+            1 {props.base} = {props.rate} {props.symbol}
           </div>
         </div>
         <span className="amount-result">$500.00 rate times amount</span>
@@ -22,5 +22,6 @@ Item.propTypes = {
   symbol: PropTypes.string.isRequired,
   rate: PropTypes.number.isRequired,
   flag: PropTypes.string.isRequired,
+  base: PropTypes.string.isRequired,
 };
 export default Item;
