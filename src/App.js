@@ -14,12 +14,18 @@ import { GET } from "./Fetch";
 function App() {
   // STATE
   // UI
-  const [newCurrency, setNewCurrency] = useState("EUR");
   const [amount, setAmount] = useState(23);
   const [base, setBase] = useState("USD");
+  const [newCurrency, setNewCurrency] = useState("EUR");
   const [netRates, setNetRates] = useState();
   const [countriesData, setCountriesData] = useState();
   const url = `https://v6.exchangerate-api.com/v6/${APIKey}/latest/${base}`;
+
+  const handleTop = (e) => {
+    const parent = document.getElementById("parent");
+    const node = e.target.offsetParent;
+    parent.insertBefore(node, parent.firstChild);
+  };
   // FETCH: GETS A LIST OF CURRENT EXCHANGE RATES
   useEffect(() => {
     const handleFetch = async () => {
@@ -64,6 +70,7 @@ function App() {
         base={base}
         result={v.rate * amount}
         code={v.code}
+        handleTop={handleTop}
       />
     ));
 
@@ -71,7 +78,7 @@ function App() {
   return (
     <main className="App App-header container-fluid">
       <header>Currency Converter</header>
-      <div>{LiComponents}</div>
+      <div id="parent">{LiComponents}</div>
 
       <span>
         <label htmlFor="amount">
