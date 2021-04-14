@@ -21,12 +21,16 @@ function App() {
   const [countriesData, setCountriesData] = useState();
   const url = `https://v6.exchangerate-api.com/v6/${APIKey}/latest/${base}`;
 
-  const handleTop = (e) => {
+  // SENDS CLICKED LI TO TOP OF LIST (PARENT.FIRSTCHILD)
+  // ALSO SETS BASE CURRENCY WITH THE ONE THAT'S CLICKED
+  // CAUSING RENDER AND RESULTS UPDATE
+  const sendToTop = (e, symbol) => {
+    setBase(symbol);
     const parent = document.getElementById("parent");
     const node = e.target.offsetParent;
     parent.insertBefore(node, parent.firstChild);
   };
-  // FETCH: GETS A LIST OF CURRENT EXCHANGE RATES
+  // FETCH: GETS A LIST OF CURRENT CURRENCY EXCHANGE RATES
   useEffect(() => {
     const handleFetch = async () => {
       const response = await GET(url);
@@ -35,7 +39,9 @@ function App() {
       console.log("Handle Fetched!");
     };
     handleFetch();
-  }, [url]);
+  }, [base]);
+
+  // ADDS THE EXCHANGE RATE FROM FETCH TO THE STORED COUNTRY OBJECTS ARRAY
   useEffect(() => {
     const handleTransform = () => {
       // console.log(`netRates in transform are: ${netRates}`);
@@ -57,6 +63,8 @@ function App() {
 
   // console.log(`netRates is: ${typeof netRates}`);
   // console.log(`countriesData222 is: ${countriesData}`);
+
+  // MAPS COUNTRY OBJECTS ARRAY INTO COMPONENTS && UNARY TO WAIT FOR ASYNC OPS TO FINISH
   const LiComponents =
     countriesData &&
     countriesData.map((v, i) => (
@@ -70,11 +78,11 @@ function App() {
         base={base}
         result={v.rate * amount}
         code={v.code}
-        handleTop={handleTop}
+        sendToTop={sendToTop}
       />
     ));
 
-  // RETURN
+  // RETURN STATEMENT
   return (
     <main className="App App-header container-fluid">
       <header>Currency Converter</header>

@@ -4,7 +4,7 @@ function Item(props) {
     <li className="list-group-item bg-dark  li-container">
       <span className="item-containter d-flex">
         <span
-          onClick={props.handleTop}
+          onClick={(e) => props.sendToTop(e, props.symbol)}
           className={`flag-icon flag-icon-${props.flag} flag country`}
         ></span>
         <div className="item-text">
@@ -32,6 +32,6 @@ Item.propTypes = {
   locale: PropTypes.string.isRequired,
   result: PropTypes.number.isRequired,
   code: PropTypes.string.isRequired,
-  handleTop: PropTypes.func.isRequired,
+  sendToTop: PropTypes.func.isRequired,
 };
 export default Item;
