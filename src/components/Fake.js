@@ -1,7 +1,7 @@
 export const GET = (query) => {
   console.log("Fake Fired");
   return {
-    data: {
+    conversion_rates: {
       USD: 1,
       AED: 3.6725,
       AFN: 78.125,
