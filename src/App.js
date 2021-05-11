@@ -20,17 +20,26 @@ function App() {
     const amountTxt = document.getElementById("hiddenAmount");
     const inputEl = document.getElementById("amtInput");
     const overlay = document.getElementById("overlay");
-    setAmount(inputEl.value);
-    inputEl.parentNode.removeChild(inputEl);
-    overlay.style.display = "none";
-    amountTxt.classList.remove("hide");
-    console.log("Blurred");
+    // SETS STATE WITH NEW AMOUNT
+    // ADDED IF TO STOP CRASH WHEN TABBING AND VALUE IS NULL
+    if (!inputEl === null) {
+      setAmount(inputEl.value);
+      // DELETES NUMBER INPUT FROM DOM
+      inputEl.parentNode.removeChild(inputEl);
+      // REMOVES OVERLAY
+      overlay.style.display = "none";
+      // SHOWS THE CURRENCY AMOUNT TEXT
+      amountTxt.classList.remove("hide");
+      console.log("Blurred");
+    }
   };
   const makeAmountInput = () => {
     const amountTxt = document.querySelector(
       "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
     );
+    // GRABS THE AMOUNT TEXT
     let amtZ = amountTxt.innerText;
+    // TURNS TEXT INTO A NUMBER REMOVING THE FIRST CHAR / DOLLAR SYMBOL
     const amt = parseInt(amtZ.substring(1));
     const amountParent = document.querySelector(
       "li.list-group-item:nth-child(1) > span:nth-child(1)"
@@ -38,20 +47,28 @@ function App() {
     const inputNum = document.createElement("input");
     // .style.display = block is on none is off
     const overlay = document.getElementById("overlay");
+    // SETTING ATTRIBUTES ON THE NEW INPUT
     inputNum.setAttribute("type", "number");
     inputNum.setAttribute("value", amt);
     inputNum.setAttribute("id", "amtInput");
+    // ADD INPUT TO DOM
     amountParent.appendChild(inputNum);
+    // EVENT LISTENERS TO NEW INPUT
     inputNum.addEventListener("blur", (e) => setNewAmount(e));
     inputNum.addEventListener("keydown", (e) => {
       e.key === "Enter" ? setNewAmount(e) : null;
     });
+    // ADD ID TO ACCESS THIS LATER
     amountTxt.setAttribute("id", "hiddenAmount");
+    // HIDE AMOUNT TEXT
     amountTxt.classList.add("hide");
+    // SHOW THE OVERLAY
     overlay.style.display = "block";
+    // PUT THE CURSOR IN THE INPUT
     inputNum.focus();
   };
   const editAmount = (e) => {
+    // CHECK ADDED SO ONLY 1 INPUT CAN EXIST
     const inputExists = document.getElementById("amtInput");
     if (!inputExists) {
       makeAmountInput();
@@ -84,9 +101,14 @@ function App() {
       }
       setCountriesData(countryObjs);
     }
+    // ADD TABINDEX TO INTERACTIVE FIELD AT FIRST LI
+    const tabIndex = document.querySelector(
+      "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
+    );
+    tabIndex.setAttribute("tabindex", "0");
   };
-  // CALLS FETCH ON MOUNT AND WHEN BASE CHANGES
   useEffect(() => {
+    // CALLS FETCH ON MOUNT AND WHEN BASE CURRENCY CHANGES
     handleFetch();
   }, [base]);
   // RETURN STATEMENT

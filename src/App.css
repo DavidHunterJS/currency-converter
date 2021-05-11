@@ -57,6 +57,7 @@ big {
   height: auto;
   border-radius: 4px;
   font-size: 3em;
+  cursor: pointer;
 }
 .item-text {
 padding-left: 5px;
@@ -68,6 +69,7 @@ padding-left: 5px;
 /* TOP LI */
 li.list-group-item:nth-child(1) {
   box-shadow: 5px 5px 15px 5px #B9DDFF;
+  cursor: pointer;
 }
 /* TOP LI AMOUNT */
 li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3) {
@@ -99,18 +101,15 @@ li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3) {
   cursor: pointer; /* Add a pointer on hover */
 }
 /*
-style the num input 
-add keypress event listner
 check for accessability
-change the title
-  create a neumorphic theme
-    spread out LIs
-    change bg and li color to same
-    color text
-    neumorphic drop shadows for LIs
-    flag hover states
-    visual indicator that amount is editable
-  css transitions maybe add framer motion ?
+create a neumorphic theme
+  spread out LIs
+  change bg and li color to same
+  color text
+  neumorphic drop shadows for LIs
+  flag hover states
+  visual indicator that amount is editable
+css transitions maybe add framer motion ?
   
 
 */

@@ -6,6 +6,7 @@ function Item(props) {
         <span
           onClick={(e) => props.sendToTop(e, props.symbol)}
           className={`flag-icon flag-icon-${props.flag} flag country`}
+          tabIndex="0"
         ></span>
         <div className="item-text">
           <div className="country-name">{props.name}</div>
