@@ -13,7 +13,11 @@ function Item(props) {
             1 {props.base} = {props.rate} {props.symbol}
           </div>
         </div>
-        <span className="amount-result">
+        <span
+          className="amount-result"
+          onClick={(e) => props.editAmount(e)}
+          onBlur={(e) => props.setNewAmount(e)}
+        >
           {props.result.toLocaleString(`${props.locale}`, {
             style: "currency",
             currency: `${props.symbol}`,
@@ -33,5 +37,7 @@ Item.propTypes = {
   result: PropTypes.number.isRequired,
   code: PropTypes.string.isRequired,
   sendToTop: PropTypes.func.isRequired,
+  editAmount: PropTypes.func.isRequired,
+  setNewAmount: PropTypes.func.isRequired,
 };
 export default Item;

@@ -1,12 +1,7 @@
-
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
-
-
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -17,11 +12,15 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
 .App-link {
   color: #61dafb;
 }
-
+.list-group {
+  width: 100%;
+}
+.li-container {
+  padding: 5px;
+}
 label {
   margin: 0 10px;
   display: grid;
@@ -59,15 +58,27 @@ big {
   border-radius: 4px;
   font-size: 3em;
 }
-.list-group {
-  width: 100%;
-}
-.li-container {
-  padding: 5px;
-}
 .item-text {
 padding-left: 5px;
 }
 .amount-result {
   margin: auto 0px auto auto;
 }
+/* BASE CURRENCY AND TOP LI */
+/* TOP LI */
+li.list-group-item:nth-child(1) {
+  box-shadow: 5px 5px 15px 5px #B9DDFF;
+}
+/* TOP LI AMOUNT */
+li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3) {
+  color: red;
+
+}
+.hide{
+  display: none;
+}
+/* 
+  on click display number input over result-amount
+  currency needs to be displayed next to input
+
+*/
