@@ -17,32 +17,36 @@ function App() {
 
   // SETS THE AMOUNT OF CURRENCY TO BE CALCULATED
   const setNewAmount = (e) => {
-    const amountEl = document.getElementById("hiddenAmount");
+    const amountTxt = document.getElementById("hiddenAmount");
     const inputEl = document.getElementById("amtInput");
+    const overlay = document.getElementById("overlay");
     setAmount(inputEl.value);
     inputEl.parentNode.removeChild(inputEl);
-    amountEl.classList.remove("hide");
+    overlay.style.display = "none";
+    amountTxt.classList.remove("hide");
     console.log("Blurred");
   };
   const makeAmountInput = () => {
-    const amountEl = document.querySelector(
+    const amountTxt = document.querySelector(
       "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
     );
-    let amtZ = amountEl.innerText;
+    let amtZ = amountTxt.innerText;
     const amt = parseInt(amtZ.substring(1));
     const amountParent = document.querySelector(
       "li.list-group-item:nth-child(1) > span:nth-child(1)"
     );
     const inputNum = document.createElement("input");
+    // .style.display = block is on none is off
+    const overlay = document.getElementById("overlay");
     inputNum.setAttribute("type", "number");
     inputNum.setAttribute("value", amt);
     inputNum.setAttribute("id", "amtInput");
     amountParent.appendChild(inputNum);
     inputNum.addEventListener("blur", (e) => setNewAmount(e));
-    amountEl.setAttribute("id", "hiddenAmount");
-    amountEl.classList.add("hide");
+    amountTxt.setAttribute("id", "hiddenAmount");
+    amountTxt.classList.add("hide");
+    overlay.style.display = "block";
     inputNum.focus();
-    // grab innhtml and covert to a number
   };
   const editAmount = (e) => {
     const inputExists = document.getElementById("amtInput");
@@ -85,6 +89,7 @@ function App() {
   // RETURN STATEMENT
   return (
     <main className="App App-header container-fluid">
+      <div id="overlay"></div>
       <header>Currency Converter</header>
       {
         <div id="parent">

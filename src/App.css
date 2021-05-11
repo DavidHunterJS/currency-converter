@@ -77,8 +77,40 @@ li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3) {
 .hide{
   display: none;
 }
-/* 
-  on click display number input over result-amount
-  currency needs to be displayed next to input
+#amtInput {
+  z-index: 10;
+  width: 135px;
+  position: absolute;
+  top: 19%;
+  right: 10px;
+}
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 5; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+/*
+style the num input 
+add keypress event listner
+disable send to top while input is visible
+check for accessability
+change the title
+  create a neumorphic theme
+    spread out LIs
+    change bg and li color to same
+    color text
+    neumorphic drop shadows for LIs
+    flag hover states
+    visual indicator that amount is editable
+  css transitions maybe add framer motion ?
+  
 
 */
