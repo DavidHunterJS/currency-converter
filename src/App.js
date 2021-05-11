@@ -100,12 +100,16 @@ function App() {
         }
       }
       setCountriesData(countryObjs);
-      // ADD TABINDEX TO INTERACTIVE FIELD AT FIRST LI
-      // const tabIndex = document.querySelector(
-      //   "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
-      // );
-      // tabIndex.setAttribute("tabindex", "0");
-      // tabIndex.setAttribute("aria-label", "Enter Currency Amount");
+      // ADD ATTRIBUTES TO INTERACTIVE FIELD AT FIRST LI
+      const tabIndex = document.querySelector(
+        "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
+      );
+      tabIndex.setAttribute("aria-label", "Enter Currency Amount");
+      tabIndex.setAttribute("tabindex", "0");
+      tabIndex.addEventListener("click", (e) => editAmount(e));
+      tabIndex.addEventListener("keydown", (e) => {
+        e.key === "Enter" ? editAmount(e) : null;
+      });
     }
   };
   useEffect(() => {

@@ -20,11 +20,7 @@ function Item(props) {
             1 {props.base} = {props.rate} {props.symbol}
           </div>
         </div>
-        <span
-          className="amount-result"
-          onClick={(e) => props.editAmount(e)}
-          onBlur={(e) => props.setNewAmount(e)}
-        >
+        <span className="amount-result">
           {props.result.toLocaleString(`${props.locale}`, {
             style: "currency",
             currency: `${props.symbol}`,
