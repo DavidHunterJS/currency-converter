@@ -22,7 +22,7 @@ function App() {
     const overlay = document.getElementById("overlay");
     // SETS STATE WITH NEW AMOUNT
     // ADDED IF TO STOP CRASH WHEN TABBING AND VALUE IS NULL
-    if (!inputEl === null) {
+    if (inputEl !== null) {
       setAmount(inputEl.value);
       // DELETES NUMBER INPUT FROM DOM
       inputEl.parentNode.removeChild(inputEl);
@@ -51,7 +51,6 @@ function App() {
     inputNum.setAttribute("type", "number");
     inputNum.setAttribute("value", amt);
     inputNum.setAttribute("id", "amtInput");
-    inputNum.setAttribute("aria-label", "Enter Currency Amount");
     // ADD INPUT TO DOM
     amountParent.appendChild(inputNum);
     // EVENT LISTENERS TO NEW INPUT
@@ -69,7 +68,7 @@ function App() {
     inputNum.focus();
   };
   const editAmount = (e) => {
-    // CHECK ADDED SO ONLY 1 INPUT CAN EXIST
+    // CHECK ADDED SO ONLY 1 INPUT MAY EXIST
     const inputExists = document.getElementById("amtInput");
     if (!inputExists) {
       makeAmountInput();
@@ -101,13 +100,13 @@ function App() {
         }
       }
       setCountriesData(countryObjs);
+      // ADD TABINDEX TO INTERACTIVE FIELD AT FIRST LI
+      // const tabIndex = document.querySelector(
+      //   "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
+      // );
+      // tabIndex.setAttribute("tabindex", "0");
+      // tabIndex.setAttribute("aria-label", "Enter Currency Amount");
     }
-    // ADD TABINDEX TO INTERACTIVE FIELD AT FIRST LI
-    const tabIndex = document.querySelector(
-      "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
-    );
-    tabIndex.setAttribute("tabindex", "0");
-    tabIndex.setAttribute("aria-label", "Enter Currency Amount");
   };
   useEffect(() => {
     // CALLS FETCH ON MOUNT AND WHEN BASE CURRENCY CHANGES
