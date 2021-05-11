@@ -51,6 +51,7 @@ function App() {
     inputNum.setAttribute("type", "number");
     inputNum.setAttribute("value", amt);
     inputNum.setAttribute("id", "amtInput");
+    inputNum.setAttribute("aria-label", "Enter Currency Amount");
     // ADD INPUT TO DOM
     amountParent.appendChild(inputNum);
     // EVENT LISTENERS TO NEW INPUT
@@ -106,6 +107,7 @@ function App() {
       "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
     );
     tabIndex.setAttribute("tabindex", "0");
+    tabIndex.setAttribute("aria-label", "Enter Currency Amount");
   };
   useEffect(() => {
     // CALLS FETCH ON MOUNT AND WHEN BASE CURRENCY CHANGES

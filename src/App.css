@@ -101,7 +101,6 @@ li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3) {
   cursor: pointer; /* Add a pointer on hover */
 }
 /*
-check for accessability
 create a neumorphic theme
   spread out LIs
   change bg and li color to same

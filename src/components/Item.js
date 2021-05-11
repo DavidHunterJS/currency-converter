@@ -4,9 +4,15 @@ function Item(props) {
     <li className="list-group-item bg-dark  li-container">
       <span className="item-containter d-flex">
         <span
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              props.sendToTop(e, props.symbol);
+            }
+          }}
           onClick={(e) => props.sendToTop(e, props.symbol)}
           className={`flag-icon flag-icon-${props.flag} flag country`}
           tabIndex="0"
+          aria-label="Set The Base Currency"
         ></span>
         <div className="item-text">
           <div className="country-name">{props.name}</div>
