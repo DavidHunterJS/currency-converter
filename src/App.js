@@ -43,8 +43,8 @@ function App() {
     inputNum.setAttribute("id", "amtInput");
     amountParent.appendChild(inputNum);
     inputNum.addEventListener("blur", (e) => setNewAmount(e));
-    inputNum.addEventListener("keypress", (e) => {
-      e.which === 13 ? setNewAmount(e) : null;
+    inputNum.addEventListener("keydown", (e) => {
+      e.key === "Enter" ? setNewAmount(e) : null;
     });
     amountTxt.setAttribute("id", "hiddenAmount");
     amountTxt.classList.add("hide");
