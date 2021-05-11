@@ -45,6 +45,15 @@ export default [
     locale: "en-AU",
   },
   {
+    id: 11,
+    symbol: "CRC",
+    name: "Costa Rica",
+    code: "&#x20A1;",
+    rate: 0,
+    flag: "cr",
+    locale: "es-CR",
+  },
+  {
     id: 6,
     symbol: "CAD",
     name: "Canada",
