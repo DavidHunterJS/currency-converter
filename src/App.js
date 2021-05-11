@@ -22,16 +22,14 @@ function App() {
     const overlay = document.getElementById("overlay");
     // SETS STATE WITH NEW AMOUNT
     // ADDED IF TO STOP CRASH WHEN TABBING AND VALUE IS NULL
-    if (inputEl !== null) {
-      setAmount(inputEl.value);
-      // DELETES NUMBER INPUT FROM DOM
-      inputEl.parentNode.removeChild(inputEl);
-      // REMOVES OVERLAY
-      overlay.style.display = "none";
-      // SHOWS THE CURRENCY AMOUNT TEXT
-      amountTxt.classList.remove("hide");
-      console.log("Blurred");
-    }
+    setAmount(inputEl.value);
+    // DELETES NUMBER INPUT FROM DOM
+    inputEl.parentNode.removeChild(inputEl);
+    // REMOVES OVERLAY
+    overlay.style.display = "none";
+    // SHOWS THE CURRENCY AMOUNT TEXT
+    amountTxt.classList.remove("hide");
+    console.log("Blurred");
   };
   const makeAmountInput = () => {
     const amountTxt = document.querySelector(
