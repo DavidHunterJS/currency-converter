@@ -21,7 +21,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(11px + 2vmin);
   color: white;
 }
 /* LIST ITEMS */
@@ -36,6 +36,9 @@ li.list-group-item.li-container {
   background: linear-gradient(-45deg, rgba(65, 63, 63, 0.22),
                             rgba(255,255,255,0.25));
 }
+div.small.text-muted.rate {
+  font-size: 60%;
+}
 .results {
   margin: 10px 0px;
   font-size: 30px;
@@ -49,6 +52,7 @@ li.list-group-item.li-container {
   border-radius: 4px;
   font-size: 3em;
   cursor: pointer;
+  
 }
 .item-text {
 padding-left: 5px;
@@ -65,7 +69,7 @@ li.list-group-item:nth-child(1) {
 }
 /* TOP LI AMOUNT */
 li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3) {
-  color: red;
+  color: rgba(21, 255, 0, 0.932);
   cursor: pointer;
 
 }
