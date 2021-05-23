@@ -21,7 +21,6 @@ function App() {
     const inputEl = document.getElementById("amtInput");
     const overlay = document.getElementById("overlay");
     // SETS STATE WITH NEW AMOUNT
-    // ADDED IF TO STOP CRASH WHEN TABBING AND VALUE IS NULL
     setAmount(inputEl.value);
     // DELETES NUMBER INPUT FROM DOM
     inputEl.parentNode.removeChild(inputEl);
@@ -51,7 +50,7 @@ function App() {
     inputNum.setAttribute("id", "amtInput");
     // ADD INPUT TO DOM
     amountParent.appendChild(inputNum);
-    // EVENT LISTENERS TO NEW INPUT
+    // ADD EVENT LISTENERS TO NEW INPUT
     inputNum.addEventListener("blur", (e) => setNewAmount(e));
     inputNum.addEventListener("keydown", (e) => {
       e.key === "Enter" ? setNewAmount(e) : null;
@@ -99,13 +98,13 @@ function App() {
       }
       setCountriesData(countryObjs);
       // ADD ATTRIBUTES TO INTERACTIVE FIELD AT FIRST LI
-      const tabIndex = document.querySelector(
+      const amountTextUi = document.querySelector(
         "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
       );
-      tabIndex.setAttribute("aria-label", "Enter Currency Amount");
-      tabIndex.setAttribute("tabindex", "0");
-      tabIndex.addEventListener("click", (e) => editAmount(e));
-      tabIndex.addEventListener("keydown", (e) => {
+      amountTextUi.setAttribute("aria-label", "Enter Currency Amount");
+      amountTextUi.setAttribute("amountTextUi", "0");
+      amountTextUi.addEventListener("click", (e) => editAmount(e));
+      amountTextUi.addEventListener("keydown", (e) => {
         e.key === "Enter" ? editAmount(e) : null;
       });
     }

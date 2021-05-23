@@ -1,6 +1,21 @@
-
+ /* #343A40 */
+ /* 343A40 */
+ :root {
+   --bg-color: #22242b;
+   --box-light: #f9fcff;
+   --box-dark: #aaadaf;
+   --bg-angle: -45deg;
+   --bg-start: rgba(0.0.0.0.22);
+   --bg-end: rgba(255,255,255,0.25);
+   --h1: 0;
+   --v1: 0;
+   --color-dark: 0;
+   --h2: 0;
+   --v2: 0;
+   --color-light: 0;
+ }
 .App-header {
-  background-color: #282c34;
+  background-color: var(--bg-color);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -9,8 +24,17 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-.li-container {
+/* LIST ITEMS */
+li.list-group-item.li-container {
+  border: none;
+  background-color: var(--bg-color);
   padding: 5px;
+  margin: 20px 0 20px 0;
+  box-shadow: 6px 3px 10px 0 rgba(0, 0, 0, 0.4),
+              -3px -3px 10px 0 rgba(238, 237, 237, 0.4);
+    border-radius: 10px;
+  background: linear-gradient(-45deg, rgba(65, 63, 63, 0.22),
+                            rgba(255,255,255,0.25));
 }
 .results {
   margin: 10px 0px;
@@ -37,12 +61,12 @@ padding-left: 5px;
 /* BASE CURRENCY AND TOP LI */
 /* TOP LI */
 li.list-group-item:nth-child(1) {
-  box-shadow: 5px 5px 15px 5px #B9DDFF;
-  cursor: pointer;
+  /* EMPTY, FOR USE LATER */
 }
 /* TOP LI AMOUNT */
 li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3) {
   color: red;
+  cursor: pointer;
 
 }
 .hide{
@@ -69,6 +93,7 @@ li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3) {
   z-index: 5; /* Specify a stack order in case you're using a different order for other elements */
   cursor: pointer; /* Add a pointer on hover */
 }
+/* USED TO REFERENCE DOM LATER  */
 #parent {
   
 }

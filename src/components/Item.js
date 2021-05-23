@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 function Item(props) {
   return (
-    <li className="list-group-item bg-dark  li-container">
+    <li className="list-group-item li-container">
       <span className="item-containter d-flex">
         <span
           onKeyDown={(e) => {
