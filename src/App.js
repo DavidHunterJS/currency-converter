@@ -97,7 +97,7 @@ function App() {
         }
       }
       setCountriesData(countryObjs);
-      // ADD ATTRIBUTES TO INTERACTIVE FIELD AT FIRST LI
+      // ADDS ATTRIBUTES TO INTERACTIVE FIELD AT FIRST LI / AMOUNT FIELD
       const amountTextUi = document.querySelector(
         "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
       );
@@ -117,7 +117,7 @@ function App() {
   return (
     <main className="App App-header container-fluid">
       <div id="overlay"></div>
-      <header>Currency Converter</header>
+      <header id="title">Currency Converter</header>
       {
         <div id="parent">
           {/* MAP COMPONENTS TO DOM ELSE SHOW LOADING */}

@@ -2,21 +2,25 @@
  /* 343A40 */
  :root {
    --bg-color: #22242b;
-   --header-text: #3faf52;
-   --amount-text: #3faf52;
+   --header-text: #5a58e4;
+   --amount-text: #fff8ef;
    --result-text: #c9beaf;
    --country-text: #fff8ef;
-   --box-light: #f9fcff;
-   --box-dark: #aaadaf;
-   --bg-angle: -45deg;
-   --bg-start: rgba(0.0.0.0.22);
-   --bg-end: rgba(255,255,255,0.25);
-   --h1: 0;
-   --v1: 0;
-   --color-dark: 0;
-   --h2: 0;
-   --v2: 0;
-   --color-light: 0;
+   --blinking-cursor-low:rgb(255, 255, 255, 0.0);
+   --blinking-cursor-hi:#576de7;
+   --li-box-shadow-low: rgba(0, 0, 0, 0.4);
+   --li-box-shadow-hi: rgba(247, 238, 238, 0.5);
+   --li-lin-grad-low: rgba(65, 63, 63, 0.22);
+   --li-lin-grad-hi: rgba(255,255,255,0.25);
+
+ }
+ #title {
+   padding: 0 10px 0 10px;
+   margin: 10px 0 0 0;
+   color: var(--header-text);
+   border-radius: 20px;
+   background: linear-gradient(-45deg, var(--li-lin-grad-low), var(--li-lin-grad-hi));
+   box-shadow: 3px 3px 5px 0 var(--li-box-shadow-low),  -1px -1px 3px 0 var(--li-box-shadow-hi);   
  }
 .App-header {
   background-color: var(--bg-color);
@@ -26,23 +30,29 @@
   align-items: center;
   justify-content: center;
   font-size: calc(11px + 2vmin);
-  color: var(--header-text)
+  /* LIST ITEMS */
 }
 div.country-name {
   color: var(--country-text);
+  animation: shine 2s linear infinite;
 }
-/* LIST ITEMS */
-li.list-group-item.li-container {
-  border: none;
-  background-color: var(--bg-color);
-  padding: 5px;
-  margin: 20px 0 20px 0;
-  box-shadow: 6px 3px 10px 0 rgba(0, 0, 0, 0.4),
-              -3px -3px 10px 0 rgba(238, 237, 237, 0.4);
-  border-radius: 10px;
-  background: linear-gradient(-45deg, rgba(65, 63, 63, 0.22),
-                            rgba(255,255,255,0.25));
+div.country-name:hover {
+  -webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
+  -webkit-mask-size: 200%;
 }
+@keyframes shine {
+  from { -webkit-mask-position: 150%; }
+  to { -webkit-mask-position: -50%; }
+}
+  li.list-group-item.li-container {
+    border: none;
+    background-color: var(--bg-color);
+    padding: 5px 10px 5px 10px;
+    margin: 20px 0 20px 0;
+    border-radius: 10px;
+    background: linear-gradient(-45deg, var(--li-lin-grad-low), var(--li-lin-grad-hi));
+    box-shadow: 6px 3px 10px 0 var(--li-box-shadow-low),  -3px -3px 4px 0 var(--li-box-shadow-hi);
+  }
 div.small.text-muted.rate {
   font-size: 60%;
 }
@@ -59,7 +69,12 @@ div.small.text-muted.rate {
   border-radius: 4px;
   font-size: 3em;
   cursor: pointer;
-  
+  position:relative;
+  left: 0;
+  transition: ease 0.2s;
+}
+.flag:hover {
+  left: 8px;
 }
 .item-text {
 padding-left: 5px;
@@ -67,7 +82,7 @@ padding-left: 5px;
 }
 .amount-result {
   margin: auto 0px auto auto;
-  color: var(--result-text)  ;
+  color: var(--result-text);
 }
 /* BASE CURRENCY AND TOP LI */
 /* TOP LI */
@@ -78,7 +93,20 @@ li.list-group-item:nth-child(1) {
 li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3) {
   color: var(--amount-text);
   cursor: pointer;
-
+}
+li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)::before {
+  content: "|";
+  font-weight: 100;
+  font-size: 30px;
+  animation: 1s blink step-end infinite;
+}
+@keyframes blink {
+  from, to {
+    color: var(--blinking-cursor-low);
+  }
+  50% {
+    color: var(--blinking-cursor-hi);
+  }
 }
 .hide{
   display: none;
@@ -94,7 +122,7 @@ li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3) {
 #overlay {
   position: fixed; /* Sit on top of the page content */
   display: none; /* Hidden by default */
-  width: 100%; /* Full width (cover the whole page) */
+  width: 100%; /* Full width (cover the whole;; page) */
   height: 100%; /* Full height (cover the whole page) */
   top: 0;
   left: 0;
