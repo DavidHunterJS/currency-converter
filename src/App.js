@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Countries from "./components/Countries";
 import Item from "./components/Item";
 import "./App.css";
@@ -55,8 +55,7 @@ function App() {
     inputNum.addEventListener("keydown", (e) => {
       e.key === "Enter" ? setNewAmount(e) : null;
     });
-    // ADD ID TO ACCESS THIS LATER
-    amountTxt.setAttribute("id", "hiddenAmount");
+
     // HIDE AMOUNT TEXT
     amountTxt.classList.add("hide");
     // SHOW THE OVERLAY
@@ -64,17 +63,27 @@ function App() {
     // PUT THE CURSOR IN THE INPUT
     inputNum.focus();
   };
-  const editAmount = (e) => {
+  const editAmount = useCallback((e) => {
     // CHECK ADDED SO ONLY 1 INPUT MAY EXIST
     const inputExists = document.getElementById("amtInput");
     if (!inputExists) {
       makeAmountInput();
     }
-  };
+  }, []);
+
   // SETS THE NEW BASE CURRENCY WHEN FLAGGED IS CLICKED
   // AND SENDS ITEM TO TOP OF LIST
   const sendToTop = (e, symbol) => {
+    // GET AND REMOVE EVENT LISTENER
+    const amountTextUi = document.querySelector(
+      "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
+    );
+    amountTextUi.removeEventListener("click", editAmount);
+    amountTextUi.removeEventListener("keydown", editAmount);
+    amountTextUi.removeAttribute("id");
+    // SETS THE NEW BASE CURRENCY COUNTRY
     setBase(symbol);
+    // SEND TO TOP PART
     const parent = document.getElementById("parent");
     const node = e.target.offsetParent;
     parent.insertBefore(node, parent.firstChild);
@@ -96,14 +105,17 @@ function App() {
           }
         }
       }
+      // instead, call a function that does all this stuff, plus it removes the evenet listener as well
+      
       setCountriesData(countryObjs);
-      // ADDS ATTRIBUTES TO INTERACTIVE FIELD AT FIRST LI / AMOUNT FIELD
+      // ADDS ATTRIBUTES TO TEXT FIELD AT FIRST LI / AMOUNT FIELD TO MAKE IT INTERACTIVE
       const amountTextUi = document.querySelector(
         "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
       );
+      amountTextUi.setAttribute("id", "hiddenAmount");
       amountTextUi.setAttribute("aria-label", "Enter Currency Amount");
       amountTextUi.setAttribute("amountTextUi", "0");
-      amountTextUi.addEventListener("click", (e) => editAmount(e));
+      amountTextUi.addEventListener("click", (e) => editAmount(e), true);
       amountTextUi.addEventListener("keydown", (e) => {
         e.key === "Enter" ? editAmount(e) : null;
       });
