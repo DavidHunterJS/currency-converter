@@ -15,8 +15,16 @@ function Item(props) {
           aria-label={`Set The Base Currency to ${props.name}`}
         ></span>
         <div className="item-text">
-          <div className="country-name">{props.name}</div>
-          <div className="small text-muted rate">
+          <div
+            className="country-name"
+            onClick={(e) => props.sendToTop(e, props.symbol)}
+          >
+            {props.name}
+          </div>
+          <div
+            className="small text-muted rate"
+            onClick={(e) => props.sendToTop(e, props.symbol)}
+          >
             1 {props.base} = {props.rate} {props.symbol}
           </div>
         </div>
