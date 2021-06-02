@@ -106,7 +106,6 @@ function App() {
         }
       }
       // instead, call a function that does all this stuff, plus it removes the evenet listener as well
-      
       setCountriesData(countryObjs);
       // ADDS ATTRIBUTES TO TEXT FIELD AT FIRST LI / AMOUNT FIELD TO MAKE IT INTERACTIVE
       const amountTextUi = document.querySelector(
