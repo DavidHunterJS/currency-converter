@@ -19,8 +19,10 @@
    margin: 10px 0 0 0;
    color: var(--header-text);
    border-radius: 20px;
+   cursor: default;
+   border: 0px;
    background: linear-gradient(-45deg, var(--li-lin-grad-low), var(--li-lin-grad-hi));
-   cursor: default;  
+   box-shadow: 2px 2px 2px 0 var(--li-box-shadow-low),  -2px -1px 2px 0 var(--li-box-shadow-hi);
  }
 .App-header {
   background-color: var(--bg-color);
