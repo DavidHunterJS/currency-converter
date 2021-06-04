@@ -1,19 +1,20 @@
  /* #343A40 */
  /* 343A40 */
  :root {
-   --bg-color: #22242b;
-   --header-text: #fcefff;
-   --amount-text: #fff8ef;
-   --result-text: #c9beaf;
-   --country-text: #fcefff;
-   --blinking-cursor-low:rgb(255, 255, 255, 0.0);
-   --blinking-cursor-hi: #fcfcfc;
-   --li-box-shadow-low: rgba(0, 0, 0, 0.4);
-   --li-box-shadow-hi: rgba(247, 238, 238, 0.5);
-   --li-lin-grad-low: rgba(65, 63, 63, 0.22);
-   --li-lin-grad-hi: rgba(255,255,255,0.25);
+  --bg-color: #22242b;
+  --header-text: #fcefff;
+  --amount-text: #fff8ef;
+  --result-text: #c9beaf;
+  --country-text: #fcefff;
+  --blinking-cursor-low:rgb(255, 255, 255, 0.0);
+  --blinking-cursor-hi: #fcfcfc;
+  --shimmer-effect: #837a8a;
+  --li-box-shadow-low: rgba(0, 0, 0, 0.4);
+  --li-box-shadow-hi: rgba(247, 238, 238, 0.5);
+  --li-lin-grad-low: rgba(65, 63, 63, 0.22);
+  --li-lin-grad-hi: #ffffff40;
+}
 
- }
  #title {
    padding: 0 10px 0 10px;
    margin: 10px 0 0 0;
@@ -22,7 +23,7 @@
    cursor: default;
    border: 0px;
    background: linear-gradient(-45deg, var(--li-lin-grad-low), var(--li-lin-grad-hi));
-   box-shadow: 2px 2px 2px 0 var(--li-box-shadow-low),  -2px -1px 2px 0 var(--li-box-shadow-hi);
+   box-shadow: 4px 2px 2px 0 var(--li-box-shadow-low),  -2px -1px 2px 0 var(--li-box-shadow-hi);
  }
 .App-header {
   background-color: var(--bg-color);
@@ -44,7 +45,7 @@ span.item-containter.d-flex:hover div.item-text div.country-name {
   color: rgba(255,255,255,0.1);
   background: -webkit-gradient(linear, left top, right top, 
               from(#fff8ef), to(#fff8ef), 
-              color-stop(0.5, #837a8a)
+              color-stop(0.5, var(--shimmer-effect))
               );
   background-size: 125px 100%;
   background-clip: text;

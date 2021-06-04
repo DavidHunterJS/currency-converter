@@ -5,9 +5,9 @@ import "./App.css";
 const baseUrl = "https://v6.exchangerate-api.com/v6/";
 const APIKey = process.env.REACT_APP_API;
 // FAKE API FOR DEV
-import { GET } from "./components/Fake";
+// import { GET } from "./components/Fake";
 // REAL API THAT WORKS BUT LIMITED TRIES
-// import { GET } from "./Fetch";
+import { GET } from "./Fetch";
 
 function App() {
   const [amount, setAmount] = useState(23);
