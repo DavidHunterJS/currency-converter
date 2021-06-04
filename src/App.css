@@ -2,12 +2,12 @@
  /* 343A40 */
  :root {
    --bg-color: #22242b;
-   --header-text: #5a58e4;
+   --header-text: #fcefff;
    --amount-text: #fff8ef;
    --result-text: #c9beaf;
-   --country-text: #fff8ef;
+   --country-text: #fcefff;
    --blinking-cursor-low:rgb(255, 255, 255, 0.0);
-   --blinking-cursor-hi:#576de7;
+   --blinking-cursor-hi: #fcfcfc;
    --li-box-shadow-low: rgba(0, 0, 0, 0.4);
    --li-box-shadow-hi: rgba(247, 238, 238, 0.5);
    --li-lin-grad-low: rgba(65, 63, 63, 0.22);
@@ -112,10 +112,11 @@ li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3) {
   color: var(--amount-text);
   cursor: pointer;
 }
+/* BLINKING CURSOR AT TOP LI */
 li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)::before {
   content: "|";
   font-weight: 100;
-  font-size: 30px;
+  font-size: 1em;
   animation: 1s blink step-end infinite;
 }
 @keyframes blink {

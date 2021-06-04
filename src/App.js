@@ -5,15 +5,16 @@ import "./App.css";
 const baseUrl = "https://v6.exchangerate-api.com/v6/";
 const APIKey = process.env.REACT_APP_API;
 // FAKE API FOR DEV
-// import { GET } from "./components/Fake";
+import { GET } from "./components/Fake";
 // REAL API THAT WORKS BUT LIMITED TRIES
-import { GET } from "./Fetch";
+// import { GET } from "./Fetch";
 
 function App() {
   const [amount, setAmount] = useState(23);
   const [base, setBase] = useState("USD");
   const [countriesData, setCountriesData] = useState();
   const url = `${baseUrl}${APIKey}/latest/${base}`;
+  const fakeUrl = "../components/Fake.js";
 
   // SETS THE AMOUNT OF CURRENCY TO BE CALCULATED
   const setNewAmount = (e) => {
@@ -55,7 +56,6 @@ function App() {
     inputNum.addEventListener("keydown", (e) => {
       e.key === "Enter" ? setNewAmount(e) : null;
     });
-
     // HIDE AMOUNT TEXT
     amountTxt.classList.add("hide");
     // SHOW THE OVERLAY
@@ -63,14 +63,14 @@ function App() {
     // PUT THE CURSOR IN THE INPUT
     inputNum.focus();
   };
-  const editAmount = useCallback((e) => {
+
+  const editAmount = (e) => {
     // CHECK ADDED SO ONLY 1 INPUT MAY EXIST
     const inputExists = document.getElementById("amtInput");
     if (!inputExists) {
       makeAmountInput();
     }
-  }, []);
-
+  };
   // SETS THE NEW BASE CURRENCY WHEN FLAGGED IS CLICKED
   // AND SENDS ITEM TO TOP OF LIST
   const sendToTop = (e, symbol) => {
@@ -92,8 +92,10 @@ function App() {
   // THEN SAVES NEW DATA TO STATE
   const handleFetch = async () => {
     const response = await GET(url);
-    const rates = await response.data.conversion_rates;
-    console.log(`Handle Fetched! at: ${url}`);
+    const rates = response.data.conversion_rates;
+    console.log(rates);
+
+    console.log(`Handle Fetched! at: ${fakeUrl}`);
     if (rates) {
       let countryObjs = [...Countries];
       for (let [k, v] of Object.entries(countryObjs)) {
@@ -105,7 +107,7 @@ function App() {
           }
         }
       }
-      // instead, call a function that does all this stuff, plus it removes the evenet listener as well
+      // instead, call a function that does all this stuff, + it will remove the evenet listener
       setCountriesData(countryObjs);
       // ADDS ATTRIBUTES TO TEXT FIELD AT FIRST LI / AMOUNT FIELD TO MAKE IT INTERACTIVE
       const amountTextUi = document.querySelector(
@@ -129,34 +131,33 @@ function App() {
     <main className="App App-header container-fluid">
       <div id="overlay"></div>
       <header id="title">Currency Converter</header>
-      {
-        <div id="parent">
-          {/* MAP COMPONENTS TO DOM ELSE SHOW LOADING */}
-          {countriesData
-            ? countriesData.map(
-                (v, i) => (
-                  console.log("mapping"),
-                  (
-                    <Item
-                      key={v.id}
-                      name={v.name}
-                      symbol={v.symbol}
-                      flag={v.flag}
-                      rate={v.rate}
-                      locale={v.locale}
-                      base={base}
-                      result={v.rate * amount}
-                      code={v.code}
-                      sendToTop={sendToTop}
-                      editAmount={editAmount}
-                      setNewAmount={setNewAmount}
-                    />
-                  )
-                )
+      <div id="parent">
+        {!countriesData ? (
+          <div>...Loading</div>
+        ) : (
+          countriesData.map(
+            (v, i) => (
+              console.log("mapping"),
+              (
+                <Item
+                  key={v.id}
+                  name={v.name}
+                  symbol={v.symbol}
+                  flag={v.flag}
+                  rate={v.rate}
+                  locale={v.locale}
+                  base={base}
+                  result={v.rate * amount}
+                  code={v.code}
+                  sendToTop={sendToTop}
+                  editAmount={editAmount}
+                  setNewAmount={setNewAmount}
+                />
               )
-            : "Loading..."}
-        </div>
-      }
+            )
+          )
+        )}
+      </div>
     </main>
   );
 }
