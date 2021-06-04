@@ -36,8 +36,6 @@
 }
 div.country-name {
   color: var(--country-text);
-}
-span.item-containter.d-flex {
   cursor: pointer;
 }
 span.item-containter.d-flex:hover div.item-text div.country-name {
@@ -75,6 +73,7 @@ span.item-containter.d-flex:hover div.item-text div.country-name {
   }
 div.small.text-muted.rate {
   font-size: 60%;
+  cursor: pointer;
 }
 .results {
   margin: 10px 0px;
