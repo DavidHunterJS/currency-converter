@@ -1,13 +1,13 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Countries from "./components/Countries";
 import Item from "./components/Item";
 import "./App.css";
 const baseUrl = "https://v6.exchangerate-api.com/v6/";
 const APIKey = process.env.REACT_APP_API;
 // FAKE API FOR DEV
-// import { GET } from "./components/Fake";
+import { GET } from "./components/Fake";
 // REAL API THAT WORKS BUT LIMITED TRIES
-import { GET } from "./Fetch";
+// import { GET } from "./Fetch";
 
 function App() {
   const [amount, setAmount] = useState(23);
@@ -15,14 +15,14 @@ function App() {
   const [countriesData, setCountriesData] = useState();
   const url = `${baseUrl}${APIKey}/latest/${base}`;
   const fakeUrl = "../components/Fake.js";
-
   // SETS THE AMOUNT OF CURRENCY TO BE CALCULATED
   const setNewAmount = (e) => {
+    console.log(amount);
     const amountTxt = document.getElementById("hiddenAmount");
     const inputEl = document.getElementById("amtInput");
     const overlay = document.getElementById("overlay");
     // SETS STATE WITH NEW AMOUNT
-    setAmount(inputEl.value);
+    setAmount(+inputEl.value);
     // DELETES NUMBER INPUT FROM DOM
     inputEl.parentNode.removeChild(inputEl);
     // REMOVES OVERLAY
@@ -37,7 +37,7 @@ function App() {
     );
     // GRABS THE AMOUNT TEXT
     let amtZ = amountTxt.innerText;
-    // TURNS TEXT INTO A NUMBER REMOVING THE FIRST CHAR / DOLLAR SYMBOL
+    // TURNS TEXT INTO A NUMBER REMOVING THE FIRST CHAR / CURRENCY SYMBOL
     const amt = parseInt(amtZ.substring(1));
     const amountParent = document.querySelector(
       "li.list-group-item:nth-child(1) > span:nth-child(1)"
@@ -74,19 +74,36 @@ function App() {
   // SETS THE NEW BASE CURRENCY WHEN FLAGGED IS CLICKED
   // AND SENDS ITEM TO TOP OF LIST
   const sendToTop = (e, symbol) => {
-    // GET AND REMOVE EVENT LISTENER
+    // IF NOT THE FIRST LIST ITEM ALREADY, THEN SEND TO TOP
+    if (e.target.offsetParent.previousSibling) {
+      // GET AND REMOVE EVENT LISTENER
+      const amountTextUi = document.querySelector(
+        "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
+      );
+      // CLONE NODE TO RM ALL EVT LISTENERS WHEN FIELD IS NOT LONGER EDITABLE
+      let newAmountTextUi = amountTextUi.cloneNode(true);
+      amountTextUi.parentNode.replaceChild(newAmountTextUi, amountTextUi);
+      newAmountTextUi.removeAttribute("id");
+      // SETS THE NEW BASE CURRENCY COUNTRY
+      setBase(symbol);
+      // THE SEND TO TOP PART
+      const parent = document.getElementById("parent");
+      const node = e.target.offsetParent;
+      parent.insertBefore(node, parent.firstChild);
+    }
+  };
+  const makeInput = () => {
+    // ADDS ATTRIBUTES TO TEXT FIELD AT FIRST LI / AMOUNT FIELD TO MAKE IT INTERACTIVE
     const amountTextUi = document.querySelector(
       "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
     );
-    amountTextUi.removeEventListener("click", editAmount);
-    amountTextUi.removeEventListener("keydown", editAmount);
-    amountTextUi.removeAttribute("id");
-    // SETS THE NEW BASE CURRENCY COUNTRY
-    setBase(symbol);
-    // SEND TO TOP PART
-    const parent = document.getElementById("parent");
-    const node = e.target.offsetParent;
-    parent.insertBefore(node, parent.firstChild);
+    amountTextUi.setAttribute("id", "hiddenAmount");
+    amountTextUi.setAttribute("aria-label", "Enter Currency Amount");
+    amountTextUi.setAttribute("amountTextUi", "0");
+    amountTextUi.addEventListener("click", (e) => editAmount(e), false);
+    amountTextUi.addEventListener("keydown", (e) => {
+      e.key === "Enter" ? editAmount(e) : null, false;
+    });
   };
   // CALLS FETCH COMPONENT, TRANSFORMS DATA,
   // THEN SAVES NEW DATA TO STATE
@@ -94,7 +111,6 @@ function App() {
     const response = await GET(url);
     const rates = response.data.conversion_rates;
     console.log(rates);
-
     console.log(`Handle Fetched! at: ${fakeUrl}`);
     if (rates) {
       let countryObjs = [...Countries];
@@ -107,19 +123,8 @@ function App() {
           }
         }
       }
-      // instead, call a function that does all this stuff, + it will remove the evenet listener
       setCountriesData(countryObjs);
-      // ADDS ATTRIBUTES TO TEXT FIELD AT FIRST LI / AMOUNT FIELD TO MAKE IT INTERACTIVE
-      const amountTextUi = document.querySelector(
-        "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
-      );
-      amountTextUi.setAttribute("id", "hiddenAmount");
-      amountTextUi.setAttribute("aria-label", "Enter Currency Amount");
-      amountTextUi.setAttribute("amountTextUi", "0");
-      amountTextUi.addEventListener("click", (e) => editAmount(e), true);
-      amountTextUi.addEventListener("keydown", (e) => {
-        e.key === "Enter" ? editAmount(e) : null;
-      });
+      makeInput();
     }
   };
   useEffect(() => {

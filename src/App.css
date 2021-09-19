@@ -77,6 +77,8 @@ span.item-containter.d-flex:hover div.item-text div.country-name {
 div.small.text-muted.rate {
   font-size: 60%;
   cursor: pointer;
+  position: absolute;
+  bottom: 0;
 }
 .results {
   margin: 10px 0px;
@@ -111,7 +113,7 @@ padding-left: 5px;
 li.list-group-item:nth-child(1) {
   /* EMPTY, FOR USE LATER */
 }
-/* TOP LI $AMOUNT */
+/* TOP LI $CURRENCY AMOUNT */
 li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3) {
   color: var(--amount-text);
   cursor: pointer;
