@@ -5,33 +5,37 @@ import "./App.css";
 const baseUrl = "https://v6.exchangerate-api.com/v6/";
 const APIKey = process.env.REACT_APP_API;
 // FAKE API FOR DEV
-import { GET } from "./components/Fake";
+// import { GET } from "./components/Fake";
 // REAL API THAT WORKS BUT LIMITED TRIES
-// import { GET } from "./Fetch";
+import { GET } from "./Fetch";
 
 function App() {
-  const [amount, setAmount] = useState(23);
+  let [amount, setAmount] = useState(0);
   const [base, setBase] = useState("USD");
   const [countriesData, setCountriesData] = useState();
   const url = `${baseUrl}${APIKey}/latest/${base}`;
   const fakeUrl = "../components/Fake.js";
+  //
   // SETS THE AMOUNT OF CURRENCY TO BE CALCULATED
-  const setNewAmount = (e) => {
+  const setNewAmount = () => {
     console.log(amount);
     const amountTxt = document.getElementById("hiddenAmount");
     const inputEl = document.getElementById("amtInput");
     const overlay = document.getElementById("overlay");
+    let val = parseInt(inputEl.value);
     // SETS STATE WITH NEW AMOUNT
-    setAmount(+inputEl.value);
+    setAmount(val);
+    console.log(val);
     // DELETES NUMBER INPUT FROM DOM
     inputEl.parentNode.removeChild(inputEl);
     // REMOVES OVERLAY
     overlay.style.display = "none";
     // SHOWS THE CURRENCY AMOUNT TEXT
     amountTxt.classList.remove("hide");
-    console.log("Blurred");
   };
-  const makeAmountInput = () => {
+  // const boundSetNewAmount = setNewAmount.bind(null);
+  //
+  const makeAmountInputOverlay = () => {
     const amountTxt = document.querySelector(
       "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
     );
@@ -51,8 +55,10 @@ function App() {
     inputNum.setAttribute("id", "amtInput");
     // ADD INPUT TO DOM
     amountParent.appendChild(inputNum);
+
+    //
     // ADD EVENT LISTENERS TO NEW INPUT
-    inputNum.addEventListener("blur", (e) => setNewAmount(e));
+    inputNum.addEventListener("blur", setNewAmount);
     inputNum.addEventListener("keydown", (e) => {
       e.key === "Enter" ? setNewAmount(e) : null;
     });
@@ -63,12 +69,11 @@ function App() {
     // PUT THE CURSOR IN THE INPUT
     inputNum.focus();
   };
-
   const editAmount = (e) => {
-    // CHECK ADDED SO ONLY 1 INPUT MAY EXIST
+    // CHECK IF ADDED ALREADY SO ONLY 1 INPUT MAY EXIST
     const inputExists = document.getElementById("amtInput");
     if (!inputExists) {
-      makeAmountInput();
+      makeAmountInputOverlay();
     }
   };
   // SETS THE NEW BASE CURRENCY WHEN FLAGGED IS CLICKED
@@ -80,11 +85,14 @@ function App() {
       const amountTextUi = document.querySelector(
         "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
       );
-      // CLONE NODE TO RM ALL EVT LISTENERS WHEN FIELD IS NOT LONGER EDITABLE
-      let newAmountTextUi = amountTextUi.cloneNode(true);
-      amountTextUi.parentNode.replaceChild(newAmountTextUi, amountTextUi);
-      newAmountTextUi.removeAttribute("id");
-      // SETS THE NEW BASE CURRENCY COUNTRY
+
+      // CLONE NODE TO RM ALL EVT LISTENERS WHEN FIELD IS NO LONGER EDITABLE
+      // let newAmountTextUi = amountTextUi.cloneNode(true);
+      // amountTextUi.parentNode.replaceChild(newAmountTextUi, amountTextUi);
+      //
+      amountTextUi.removeAttribute("id");
+      // // SETS THE NEW BASE CURRENCY COUNTRY
+      console.log(amountTextUi);
       setBase(symbol);
       // THE SEND TO TOP PART
       const parent = document.getElementById("parent");
@@ -100,7 +108,7 @@ function App() {
     amountTextUi.setAttribute("id", "hiddenAmount");
     amountTextUi.setAttribute("aria-label", "Enter Currency Amount");
     amountTextUi.setAttribute("amountTextUi", "0");
-    amountTextUi.addEventListener("click", (e) => editAmount(e), false);
+    amountTextUi.addEventListener("click", editAmount, true);
     amountTextUi.addEventListener("keydown", (e) => {
       e.key === "Enter" ? editAmount(e) : null, false;
     });
@@ -111,7 +119,7 @@ function App() {
     const response = await GET(url);
     const rates = response.data.conversion_rates;
     console.log(rates);
-    console.log(`Handle Fetched! at: ${fakeUrl}`);
+    console.log(`Handle Fetched! at: ${url}`);
     if (rates) {
       let countryObjs = [...Countries];
       for (let [k, v] of Object.entries(countryObjs)) {
