@@ -15,17 +15,14 @@ function App() {
   const [countriesData, setCountriesData] = useState();
   const url = `${baseUrl}${APIKey}/latest/${base}`;
   const fakeUrl = "../components/Fake.js";
-  //
   // SETS THE AMOUNT OF CURRENCY TO BE CALCULATED
   const setNewAmount = () => {
-    console.log(amount);
     const amountTxt = document.getElementById("hiddenAmount");
     const inputEl = document.getElementById("amtInput");
     const overlay = document.getElementById("overlay");
     let val = parseInt(inputEl.value);
     // SETS STATE WITH NEW AMOUNT
     setAmount(val);
-    console.log(val);
     // DELETES NUMBER INPUT FROM DOM
     inputEl.parentNode.removeChild(inputEl);
     // REMOVES OVERLAY
@@ -40,23 +37,23 @@ function App() {
       "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
     );
     // GRABS THE AMOUNT TEXT
-    let amtZ = amountTxt.innerText;
+    let amtTxt = amountTxt.outerText;
+    let amtStripped = amtTxt.replace(/^\D|,/g, "");
+    // GET THE VALUE OF AMOUNTXT INSTEAD OF ITS INNERTEXT
     // TURNS TEXT INTO A NUMBER REMOVING THE FIRST CHAR / CURRENCY SYMBOL
-    const amt = parseInt(amtZ.substring(1));
+    const amtNum = parseInt(amtStripped);
     const amountParent = document.querySelector(
       "li.list-group-item:nth-child(1) > span:nth-child(1)"
     );
     const inputNum = document.createElement("input");
-    // .style.display = block is on none is off
+    // .style.display = block is on, none is off
     const overlay = document.getElementById("overlay");
     // SETTING ATTRIBUTES ON THE NEW INPUT
     inputNum.setAttribute("type", "number");
-    inputNum.setAttribute("value", amt);
+    inputNum.setAttribute("value", amtNum);
     inputNum.setAttribute("id", "amtInput");
     // ADD INPUT TO DOM
     amountParent.appendChild(inputNum);
-
-    //
     // ADD EVENT LISTENERS TO NEW INPUT
     inputNum.addEventListener("blur", setNewAmount);
     inputNum.addEventListener("keydown", (e) => {
@@ -69,8 +66,8 @@ function App() {
     // PUT THE CURSOR IN THE INPUT
     inputNum.focus();
   };
+  // SINGLETON FOR THE MODAL INPUT OVERLAY
   const editAmount = (e) => {
-    // CHECK IF ADDED ALREADY SO ONLY 1 INPUT MAY EXIST
     const inputExists = document.getElementById("amtInput");
     if (!inputExists) {
       makeAmountInputOverlay();
@@ -85,14 +82,13 @@ function App() {
       const amountTextUi = document.querySelector(
         "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
       );
-
-      // CLONE NODE TO RM ALL EVT LISTENERS WHEN FIELD IS NO LONGER EDITABLE
+      // CLONE NODE TO RM ALL EVT LISTENERS WHEN FIELD SHOULD NO LONGER BE EDITABLE
       // let newAmountTextUi = amountTextUi.cloneNode(true);
       // amountTextUi.parentNode.replaceChild(newAmountTextUi, amountTextUi);
       //
       amountTextUi.removeAttribute("id");
-      // // SETS THE NEW BASE CURRENCY COUNTRY
       console.log(amountTextUi);
+      // SETS THE NEW BASE CURRENCY COUNTRY
       setBase(symbol);
       // THE SEND TO TOP PART
       const parent = document.getElementById("parent");
