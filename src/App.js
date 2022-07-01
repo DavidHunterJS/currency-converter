@@ -20,18 +20,17 @@ function App() {
     const amountTxt = document.getElementById("hiddenAmount");
     const inputEl = document.getElementById("amtInput");
     const overlay = document.getElementById("overlay");
-    let val = parseInt(inputEl.value);
+    let val = parseFloat(inputEl.value);
     // SETS STATE WITH NEW AMOUNT
     setAmount(val);
     // DELETES NUMBER INPUT FROM DOM
     inputEl.parentNode.removeChild(inputEl);
-    // REMOVES OVERLAY
+    // REMOVES MODAL OVERLAY
     overlay.style.display = "none";
     // SHOWS THE CURRENCY AMOUNT TEXT
     amountTxt.classList.remove("hide");
   };
   // const boundSetNewAmount = setNewAmount.bind(null);
-  //
   const makeAmountInputOverlay = () => {
     const amountTxt = document.querySelector(
       "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
@@ -41,7 +40,7 @@ function App() {
     let amtStripped = amtTxt.replace(/^\D|,/g, "");
     // GET THE VALUE OF AMOUNTXT INSTEAD OF ITS INNERTEXT
     // TURNS TEXT INTO A NUMBER REMOVING THE FIRST CHAR / CURRENCY SYMBOL
-    const amtNum = parseInt(amtStripped);
+    const amtNum = parseFloat(amtStripped);
     const amountParent = document.querySelector(
       "li.list-group-item:nth-child(1) > span:nth-child(1)"
     );
@@ -87,7 +86,6 @@ function App() {
       // amountTextUi.parentNode.replaceChild(newAmountTextUi, amountTextUi);
       //
       amountTextUi.removeAttribute("id");
-      console.log(amountTextUi);
       // SETS THE NEW BASE CURRENCY COUNTRY
       setBase(symbol);
       // THE SEND TO TOP PART
