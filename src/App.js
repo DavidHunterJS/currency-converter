@@ -150,7 +150,7 @@ function App() {
       <header id="title">Currency Converter</header>
       <div id="parent">
         {!countriesData ? (
-          <div>...Loading</div>
+          <div id="title">{<LoadingSpinner />}</div>
         ) : (
           countriesData.map(
             (country, i) => (
