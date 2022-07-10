@@ -97,8 +97,6 @@ function App() {
       const node = e.target.offsetParent;
       parent.insertBefore(node, parent.firstChild);
       setIsLoading(true);
-      // amountTextUi.removeAttribute("data-before");
-      // console.log(`This is Amount Text: ${amountTextUi.dataset.before}`);
     }
   };
   const makeInput = () => {
