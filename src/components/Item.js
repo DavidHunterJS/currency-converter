@@ -29,10 +29,19 @@ function Item(props) {
           </div>
         </div>
         <span className="amount-result">
-          {props.result.toLocaleString(`${props.locale}`, {
+          {/* {<props.LoadingSpinner />} */}
+          {/* {props.result.toLocaleString(`${props.locale}`, {
             style: "currency",
             currency: `${props.symbol}`,
-          })}
+          })} */}
+          {props.isLoading ? (
+            <props.LoadingSpinner />
+          ) : (
+            props.result.toLocaleString(`${props.locale}`, {
+              style: "currency",
+              currency: `${props.symbol}`,
+            })
+          )}
         </span>
       </span>
     </li>
@@ -50,5 +59,7 @@ Item.propTypes = {
   sendToTop: PropTypes.func.isRequired,
   editAmount: PropTypes.func.isRequired,
   setNewAmount: PropTypes.func.isRequired,
+  LoadingSpinner: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 export default Item;

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Countries from "./components/Countries";
 import Item from "./components/Item";
+import LoadingSpinner from "./components/LoadingSpinner";
 import "./App.css";
 const baseUrl = "https://v6.exchangerate-api.com/v6/";
 const APIKey = process.env.REACT_APP_API;
@@ -8,13 +9,16 @@ const APIKey = process.env.REACT_APP_API;
 // import { GET } from "./components/Fake";
 // REAL API THAT WORKS BUT LIMITED TRIES
 import { GET } from "./Fetch";
+import { doc } from "prettier";
 
 function App() {
-  let [amount, setAmount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [amount, setAmount] = useState(0);
   const [base, setBase] = useState("USD");
   const [countriesData, setCountriesData] = useState();
   const url = `${baseUrl}${APIKey}/latest/${base}`;
-  const fakeUrl = "../components/Fake.js";
+  // const fakeUrl = "../components/Fake.js";
+
   // SETS THE AMOUNT OF CURRENCY TO BE CALCULATED
   const setNewAmount = () => {
     const amountTxt = document.getElementById("hiddenAmount");
@@ -30,13 +34,13 @@ function App() {
     // SHOWS THE CURRENCY AMOUNT TEXT
     amountTxt.classList.remove("hide");
   };
-  // const boundSetNewAmount = setNewAmount.bind(null);
   const makeAmountInputOverlay = () => {
     const amountTxt = document.querySelector(
       "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
     );
     // GRABS THE AMOUNT TEXT
     let amtTxt = amountTxt.outerText;
+    // REMOVES THE CURRENCY SYMBOL
     let amtStripped = amtTxt.replace(/^\D|,/g, "");
     // GET THE VALUE OF AMOUNTXT INSTEAD OF ITS INNERTEXT
     // TURNS TEXT INTO A NUMBER REMOVING THE FIRST CHAR / CURRENCY SYMBOL
@@ -92,6 +96,9 @@ function App() {
       const parent = document.getElementById("parent");
       const node = e.target.offsetParent;
       parent.insertBefore(node, parent.firstChild);
+      setIsLoading(true);
+      // amountTextUi.removeAttribute("data-before");
+      // console.log(`This is Amount Text: ${amountTextUi.dataset.before}`);
     }
   };
   const makeInput = () => {
@@ -102,6 +109,7 @@ function App() {
     amountTextUi.setAttribute("id", "hiddenAmount");
     amountTextUi.setAttribute("aria-label", "Enter Currency Amount");
     amountTextUi.setAttribute("amountTextUi", "0");
+    amountTextUi.setAttribute("data-before", "|");
     amountTextUi.addEventListener("click", editAmount, true);
     amountTextUi.addEventListener("keydown", (e) => {
       e.key === "Enter" ? editAmount(e) : null, false;
@@ -128,6 +136,8 @@ function App() {
       setCountriesData(countryObjs);
       makeInput();
     }
+    // console.log(hidAmount);
+    setIsLoading(false);
   };
   useEffect(() => {
     // CALLS FETCH ON MOUNT AND WHEN BASE CURRENCY CHANGES
@@ -143,22 +153,24 @@ function App() {
           <div>...Loading</div>
         ) : (
           countriesData.map(
-            (v, i) => (
+            (country, i) => (
               console.log("mapping"),
               (
                 <Item
-                  key={v.id}
-                  name={v.name}
-                  symbol={v.symbol}
-                  flag={v.flag}
-                  rate={v.rate}
-                  locale={v.locale}
+                  key={country.id}
+                  name={country.name}
+                  symbol={country.symbol}
+                  flag={country.flag}
+                  rate={country.rate}
+                  locale={country.locale}
                   base={base}
-                  result={v.rate * amount}
-                  code={v.code}
+                  result={country.rate * amount}
+                  code={country.code}
                   sendToTop={sendToTop}
                   editAmount={editAmount}
                   setNewAmount={setNewAmount}
+                  isLoading={isLoading}
+                  LoadingSpinner={LoadingSpinner}
                 />
               )
             )
