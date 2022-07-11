@@ -20,7 +20,7 @@ function App() {
   // const fakeUrl = "../components/Fake.js";
 
   // SETS THE AMOUNT OF CURRENCY TO BE CALCULATED
-  const setNewAmount = () => {
+  function setNewAmount() {
     const amountTxt = document.getElementById("hiddenAmount");
     const inputEl = document.getElementById("amtInput");
     const overlay = document.getElementById("overlay");
@@ -33,8 +33,10 @@ function App() {
     overlay.style.display = "none";
     // SHOWS THE CURRENCY AMOUNT TEXT
     amountTxt.classList.remove("hide");
-  };
-  const makeAmountInputOverlay = () => {
+    amountTxt.removeEventListener("click", editAmount);
+    console.log(amountTxt);
+  }
+  function makeAmountInputOverlay() {
     const amountTxt = document.querySelector(
       "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
     );
@@ -68,12 +70,17 @@ function App() {
     overlay.style.display = "block";
     // PUT THE CURSOR IN THE INPUT
     inputNum.focus();
-  };
+  }
   // SINGLETON FOR THE MODAL INPUT OVERLAY
-  const editAmount = (e) => {
+  function editAmount(e) {
     const inputExists = document.getElementById("amtInput");
     if (!inputExists) {
       makeAmountInputOverlay();
+    }
+  }
+  let clickHandler = (e) => {
+    if (e.target.id == "hiddenAmount") {
+      editAmount(e);
     }
   };
   // SETS THE NEW BASE CURRENCY WHEN FLAGGED IS CLICKED
@@ -90,6 +97,9 @@ function App() {
       // amountTextUi.parentNode.replaceChild(newAmountTextUi, amountTextUi);
       //
       amountTextUi.removeAttribute("id");
+      amountTextUi.removeAttribute("aria-label");
+      amountTextUi.removeAttribute("amountTextUi");
+
       // SETS THE NEW BASE CURRENCY COUNTRY
       setBase(symbol);
       // THE SEND TO TOP PART
@@ -107,8 +117,7 @@ function App() {
     amountTextUi.setAttribute("id", "hiddenAmount");
     amountTextUi.setAttribute("aria-label", "Enter Currency Amount");
     amountTextUi.setAttribute("amountTextUi", "0");
-    amountTextUi.setAttribute("data-before", "|");
-    amountTextUi.addEventListener("click", editAmount, true);
+    amountTextUi.addEventListener("click", clickHandler);
     amountTextUi.addEventListener("keydown", (e) => {
       e.key === "Enter" ? editAmount(e) : null, false;
     });
