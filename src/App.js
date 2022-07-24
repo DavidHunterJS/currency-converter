@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import Countries from "./components/Countries";
 import Item from "./components/Item";
 import LoadingSpinner from "./components/LoadingSpinner";
+import Modal from "./components/Modal/Modal";
+// import Input from "./components/Input";
 import "./App.css";
 const baseUrl = "https://v6.exchangerate-api.com/v6/";
 const APIKey = process.env.REACT_APP_API;
@@ -12,6 +14,7 @@ import { GET } from "./Fetch";
 import { doc } from "prettier";
 
 function App() {
+  const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(0);
   const [base, setBase] = useState("USD");
@@ -19,87 +22,31 @@ function App() {
   const url = `${baseUrl}${APIKey}/latest/${base}`;
   // const fakeUrl = "../components/Fake.js";
 
-  // SETS THE AMOUNT OF CURRENCY TO BE CALCULATED
-  function setNewAmount() {
-    const amountTxt = document.getElementById("hiddenAmount");
-    const inputEl = document.getElementById("amtInput");
-    const overlay = document.getElementById("overlay");
-    let val = parseFloat(inputEl.value);
-    // SETS STATE WITH NEW AMOUNT
-    setAmount(val);
-    // DELETES NUMBER INPUT FROM DOM
-    inputEl.parentNode.removeChild(inputEl);
-    // REMOVES MODAL OVERLAY
-    overlay.style.display = "none";
-    // SHOWS THE CURRENCY AMOUNT TEXT
-    amountTxt.classList.remove("hide");
-    amountTxt.removeEventListener("click", editAmount);
-    console.log(amountTxt);
-  }
-  function makeAmountInputOverlay() {
-    const amountTxt = document.querySelector(
-      "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
-    );
-    // GRABS THE AMOUNT TEXT
-    let amtTxt = amountTxt.outerText;
-    // REMOVES THE CURRENCY SYMBOL
-    let amtStripped = amtTxt.replace(/^\D|,/g, "");
-    // GET THE VALUE OF AMOUNTXT INSTEAD OF ITS INNERTEXT
-    // TURNS TEXT INTO A NUMBER REMOVING THE FIRST CHAR / CURRENCY SYMBOL
-    const amtNum = parseFloat(amtStripped);
-    const amountParent = document.querySelector(
-      "li.list-group-item:nth-child(1) > span:nth-child(1)"
-    );
-    const inputNum = document.createElement("input");
-    // .style.display = block is on, none is off
-    const overlay = document.getElementById("overlay");
-    // SETTING ATTRIBUTES ON THE NEW INPUT
-    inputNum.setAttribute("type", "number");
-    inputNum.setAttribute("value", amtNum);
-    inputNum.setAttribute("id", "amtInput");
-    // ADD INPUT TO DOM
-    amountParent.appendChild(inputNum);
-    // ADD EVENT LISTENERS TO NEW INPUT
-    inputNum.addEventListener("blur", setNewAmount);
-    inputNum.addEventListener("keydown", (e) => {
-      e.key === "Enter" ? setNewAmount(e) : null;
-    });
-    // HIDE AMOUNT TEXT
-    amountTxt.classList.add("hide");
-    // SHOW THE OVERLAY
-    overlay.style.display = "block";
-    // PUT THE CURSOR IN THE INPUT
-    inputNum.focus();
-  }
-  // SINGLETON FOR THE MODAL INPUT OVERLAY
-  function editAmount(e) {
-    const inputExists = document.getElementById("amtInput");
-    if (!inputExists) {
-      makeAmountInputOverlay();
-    }
-  }
-  let clickHandler = (e) => {
-    if (e.target.id == "hiddenAmount") {
-      editAmount(e);
-    }
+  // MODAL METHODS PASSED AS PROPS
+  let [value, setValue] = useState("0.00");
+  const handleChange = (e) => {
+    let val0 = e.target.value;
+    let val1 = val0.replace(/\D/g, "");
+    let val2 = (val1 / 100).toFixed(2);
+    setValue(val2);
+  };
+  const handleClose = () => {
+    setShow(false);
+    let floatNum = parseFloat(value);
+    setAmount(floatNum);
   };
   // SETS THE NEW BASE CURRENCY WHEN FLAGGED IS CLICKED
   // AND SENDS ITEM TO TOP OF LIST
   const sendToTop = (e, symbol) => {
-    // IF NOT THE FIRST LIST ITEM ALREADY, THEN SEND TO TOP
+    // IF ITS NOT THE FIRST LIST ITEM ALREADY, THEN SEND TO TOP
     if (e.target.offsetParent.previousSibling) {
-      // GET AND REMOVE EVENT LISTENER
+      // GET EL AND REMOVE ATTRIBUTES
       const amountTextUi = document.querySelector(
         "li.list-group-item:nth-child(1) > span:nth-child(1) > span:nth-child(3)"
       );
-      // CLONE NODE TO RM ALL EVT LISTENERS WHEN FIELD SHOULD NO LONGER BE EDITABLE
-      // let newAmountTextUi = amountTextUi.cloneNode(true);
-      // amountTextUi.parentNode.replaceChild(newAmountTextUi, amountTextUi);
-      //
       amountTextUi.removeAttribute("id");
       amountTextUi.removeAttribute("aria-label");
       amountTextUi.removeAttribute("amountTextUi");
-
       // SETS THE NEW BASE CURRENCY COUNTRY
       setBase(symbol);
       // THE SEND TO TOP PART
@@ -117,10 +64,6 @@ function App() {
     amountTextUi.setAttribute("id", "hiddenAmount");
     amountTextUi.setAttribute("aria-label", "Enter Currency Amount");
     amountTextUi.setAttribute("amountTextUi", "0");
-    amountTextUi.addEventListener("click", clickHandler);
-    amountTextUi.addEventListener("keydown", (e) => {
-      e.key === "Enter" ? editAmount(e) : null, false;
-    });
   };
   // CALLS FETCH COMPONENT, TRANSFORMS DATA,
   // THEN SAVES NEW DATA TO STATE
@@ -154,10 +97,18 @@ function App() {
   return (
     <main className="App App-header container-fluid">
       <div id="overlay"></div>
-      <header id="title">Currency Converter</header>
+      <header className="title">Currency Converter</header>
       <div id="parent">
+        <Modal
+          title="Enter Curreny Amount"
+          onClose={handleClose}
+          show={show}
+          handleChange={handleChange}
+          setValue={setValue}
+          value={value}
+        ></Modal>
         {!countriesData ? (
-          <div id="title">{<LoadingSpinner />}</div>
+          <div className="title">{<LoadingSpinner />}</div>
         ) : (
           countriesData.map(
             (country, i) => (
@@ -174,8 +125,7 @@ function App() {
                   result={country.rate * amount}
                   code={country.code}
                   sendToTop={sendToTop}
-                  editAmount={editAmount}
-                  setNewAmount={setNewAmount}
+                  setShow={setShow}
                   isLoading={isLoading}
                   LoadingSpinner={LoadingSpinner}
                 />

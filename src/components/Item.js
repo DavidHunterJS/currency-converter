@@ -28,12 +28,7 @@ function Item(props) {
             1 {props.base} = {props.rate} {props.symbol}
           </div>
         </div>
-        <span className="amount-result">
-          {/* {<props.LoadingSpinner />} */}
-          {/* {props.result.toLocaleString(`${props.locale}`, {
-            style: "currency",
-            currency: `${props.symbol}`,
-          })} */}
+        <span className="amount-result" onClick={() => props.setShow(true)}>
           {props.isLoading ? (
             <props.LoadingSpinner />
           ) : (
@@ -57,8 +52,7 @@ Item.propTypes = {
   result: PropTypes.number.isRequired,
   code: PropTypes.string.isRequired,
   sendToTop: PropTypes.func.isRequired,
-  editAmount: PropTypes.func.isRequired,
-  setNewAmount: PropTypes.func.isRequired,
+  setShow: PropTypes.func.isRequired,
   LoadingSpinner: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
