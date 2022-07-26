@@ -24,20 +24,19 @@ function App() {
 
   // MODAL METHODS PASSED AS PROPS
   let [value, setValue] = useState("0.00");
-  const handleChange = (e) => {
+  const handleModalInputChange = (e) => {
     let val0 = e.target.value;
     let val1 = val0.replace(/\D/g, "");
     let val2 = (val1 / 100).toFixed(2);
     setValue(val2);
   };
-  const handleClose = () => {
+  const handleModalClose = () => {
     setShow(false);
     let floatNum = parseFloat(value);
     setAmount(floatNum);
   };
-  const handleOpen = (e, code) => {
+  const handleModalOpen = (e, code) => {
     e.target.id && setShow(true);
-    console.log(e.target.id);
     setSymbol(code);
   };
   // SETS THE NEW BASE CURRENCY WHEN FLAGGED IS CLICKED
@@ -106,9 +105,9 @@ function App() {
       <div id="parent">
         <Modal
           title="Enter Currency Amount"
-          onClose={handleClose}
+          onClose={handleModalClose}
           show={show}
-          handleChange={handleChange}
+          handleModalInputChange={handleModalInputChange}
           setValue={setValue}
           value={value}
           symbol={symbol}
@@ -131,7 +130,7 @@ function App() {
                   result={country.rate * amount}
                   code={country.code}
                   sendToTop={sendToTop}
-                  handleOpen={handleOpen}
+                  handleModalOpen={handleModalOpen}
                   isLoading={isLoading}
                   LoadingSpinner={LoadingSpinner}
                 />

@@ -38,7 +38,7 @@ const Modal = (props) => {
               id="amtInput"
               type="number"
               value={props.value}
-              onChange={props.handleChange}
+              onChange={props.handleModalInputChange}
               autoFocus
             />
           </div>

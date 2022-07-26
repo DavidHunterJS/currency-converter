@@ -30,7 +30,7 @@ function Item(props) {
         </div>
         <span
           className="amount-result"
-          onClick={(e) => props.handleOpen(e, props.code)}
+          onClick={(e) => props.handleModalOpen(e, props.code)}
         >
           {props.isLoading ? (
             <props.LoadingSpinner />
@@ -55,7 +55,7 @@ Item.propTypes = {
   result: PropTypes.number.isRequired,
   code: PropTypes.string.isRequired,
   sendToTop: PropTypes.func.isRequired,
-  handleOpen: PropTypes.func.isRequired,
+  handleModalOpen: PropTypes.func.isRequired,
   LoadingSpinner: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
