@@ -41,6 +41,7 @@
     transform: translateY(-200px);
 
     padding: 0 10px 0 10px;
+    
     margin-left: auto;
     margin-right: auto;
     width: 50%;
@@ -65,6 +66,8 @@
 .modal-header,
 .modal-footer {
     padding: 10px;
+    border-top: 0;
+    border-bottom: 0;
 }
 
 .modal-title {
@@ -73,10 +76,32 @@
 
 .modal-body {
     padding: 10px;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+    border-top: 3px solid var(--li-lin-grad-hi);
+    border-bottom: 3px solid var(--li-lin-grad-hi);
 }
 #amtInput {
-height: 50px;
-font-size: 2rem;
+    height: 50px;
+    font-size: 2rem;
+    font-weight: 500;
+    width: 90%;
+    color:var(--bg-color);
+    background-color: var(--result-text);
+}
+/* curreny symbol left of input on the modal */
+#symbol {
+    margin-right: 10px;
+    font-size: 2rem;
+    color: var(--amount-text)
+}
+.button {
+    padding: 0 10px 0 10px;
+    margin-left: auto;
+    color: var(--header-text);
+    border-radius: 25px;
+    cursor: default;
+    border: 0px;
+    background: linear-gradient(-45deg, rgb(41, 41, 41), #646464);
+    box-shadow: 4px 2px 2px 0 var(--li-box-shadow-low), -2px -1px 2px 0 var(--li-box-shadow-hi);
+    width: 20%;
+    margin-right: 20px;
 }

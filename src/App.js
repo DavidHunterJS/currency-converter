@@ -11,9 +11,9 @@ const APIKey = process.env.REACT_APP_API;
 // import { GET } from "./components/Fake";
 // REAL API THAT WORKS BUT LIMITED TRIES
 import { GET } from "./Fetch";
-import { doc } from "prettier";
 
 function App() {
+  const [symbol, setSymbol] = useState();
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(0);
@@ -34,6 +34,12 @@ function App() {
     setShow(false);
     let floatNum = parseFloat(value);
     setAmount(floatNum);
+  };
+  const handleOpen = (hex) => {
+    setShow(true);
+    // let hext = (hex += ";");
+    setSymbol(hex);
+    // console.log(hext);
   };
   // SETS THE NEW BASE CURRENCY WHEN FLAGGED IS CLICKED
   // AND SENDS ITEM TO TOP OF LIST
@@ -89,8 +95,8 @@ function App() {
     // console.log(hidAmount);
     setIsLoading(false);
   };
+  // CALLS FETCH ON MOUNT AND WHEN BASE CURRENCY CHANGES
   useEffect(() => {
-    // CALLS FETCH ON MOUNT AND WHEN BASE CURRENCY CHANGES
     handleFetch();
   }, [base]);
   // RETURN STATEMENT
@@ -100,12 +106,13 @@ function App() {
       <header className="title">Currency Converter</header>
       <div id="parent">
         <Modal
-          title="Enter Curreny Amount"
+          title="Enter Currency Amount"
           onClose={handleClose}
           show={show}
           handleChange={handleChange}
           setValue={setValue}
           value={value}
+          symbol={symbol}
         ></Modal>
         {!countriesData ? (
           <div className="title">{<LoadingSpinner />}</div>
@@ -125,7 +132,7 @@ function App() {
                   result={country.rate * amount}
                   code={country.code}
                   sendToTop={sendToTop}
-                  setShow={setShow}
+                  handleOpen={handleOpen}
                   isLoading={isLoading}
                   LoadingSpinner={LoadingSpinner}
                 />

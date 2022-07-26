@@ -32,8 +32,9 @@ const Modal = (props) => {
             <h4 className="modal-title">{props.title}</h4>
           </div>
           <div className="modal-body d-flex justify-content-center">
+            <span id="symbol">{props.symbol}</span>
             <input
-              className="col-6"
+              className={`flag-icon flag-icon-${props.flag} flag country`}
               id="amtInput"
               type="number"
               value={props.value}
@@ -43,7 +44,7 @@ const Modal = (props) => {
           </div>
           <div className="modal-footer">
             <button onClick={props.onClose} className="button">
-              Close
+              Save
             </button>
           </div>
         </div>
