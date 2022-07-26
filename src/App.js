@@ -35,11 +35,10 @@ function App() {
     let floatNum = parseFloat(value);
     setAmount(floatNum);
   };
-  const handleOpen = (hex) => {
-    setShow(true);
-    // let hext = (hex += ";");
-    setSymbol(hex);
-    // console.log(hext);
+  const handleOpen = (e, code) => {
+    e.target.id && setShow(true);
+    console.log(e.target.id);
+    setSymbol(code);
   };
   // SETS THE NEW BASE CURRENCY WHEN FLAGGED IS CLICKED
   // AND SENDS ITEM TO TOP OF LIST

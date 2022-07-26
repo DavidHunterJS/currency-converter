@@ -30,7 +30,7 @@ function Item(props) {
         </div>
         <span
           className="amount-result"
-          onClick={() => props.handleOpen(props.code)}
+          onClick={(e) => props.handleOpen(e, props.code)}
         >
           {props.isLoading ? (
             <props.LoadingSpinner />
