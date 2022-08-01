@@ -5,6 +5,7 @@
      --result-text: #c9beaf;
      --country-text: #fcefff;
      --modal-text: rgb(204, 197, 197);
+     --modal-header-text: rgb(233, 227, 227);
      --blinking-cursor-low: rgb(255, 255, 255, 0.0);
      --blinking-cursor-hi: #fcfcfc;
      --shimmer-effect: #837a8a;
@@ -46,8 +47,9 @@
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-    /* color: var(--modal-text); */
-    color: rgb(233, 227, 227);
+    /* color: var(--modal-header-text);
+     */
+     color:#ccc7bd;
     border-radius: 20px;
     cursor: default;
     border: 0px;
@@ -86,8 +88,9 @@
     font-size: 2rem;
     font-weight: 500;
     width: 90%;
-    color: rgb(90, 89, 89);
-    background-color: var(--result-text);
+    color: rgb(95, 91, 91);
+    /* background-color: var(--result-text); */
+    background-color: rgb(199, 193, 189);
 }
 /* curreny symbol left of input on the modal */
 #symbol {
